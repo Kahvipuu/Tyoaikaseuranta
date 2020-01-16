@@ -15,4 +15,4 @@ Toiminnot:
 
 ### Tietokantakaavio
 
-<img src="..pics/tietokantakaavio.jpg">
+<img src="https://github.com/Kahvipuu/Tyoaikaseuranta/blob/master/pics/tietokantakaavio.jpg">
