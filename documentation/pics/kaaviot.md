@@ -1,6 +1,6 @@
 # Tietokantakaaviot
 
-[readme](https://github.com/Kahvipuu/Tyoaikaseuranta/blob/master/documentation/pics/README.md)
+[readme](https://github.com/Kahvipuu/Tyoaikaseuranta/blob/master/README.md)
 
 ## Draft 2
 
