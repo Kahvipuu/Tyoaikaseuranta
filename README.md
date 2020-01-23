@@ -13,6 +13,9 @@ Toiminnot:
 * Projektipäällikön raportit
 * Projektin päättäminen
 
+### Heroku
+[Heroku, tyoaikaseuranta2020](https://tsoha-tyoaikaseuranta2020.herokuapp.com/)
+
 ### Tietokantakaavio
 
-<img src="https://github.com/Kahvipuu/Tyoaikaseuranta/blob/master/documentation/pics/tietokantakaavio.pdf">
+[Kuvat](https://github.com/Kahvipuu/Tyoaikaseuranta/blob/master/documentation/pics/kaaviot.md)
