@@ -2,6 +2,9 @@
 # kurssin muu materiaali
 materiaali/
 
+#Tietokanta
+tasks.db
+
 #kopioidussa jo mukana
 #venv/
 #__pycache__/
