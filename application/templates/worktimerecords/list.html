@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <table>
+    <tr>
+      <th>Worktimerecord</th>
+      <th>Done</th>
+    </tr>
+    {% for worktimerecord in worktimerecords %}
+    <tr>
+      <td>{{ worktimerecord.name }}</td>
+      <td>{{ worktimerecord.done }}</td>
+      <td>
+        <form method="POST" action="{{ url_for('worktimerecords_set_done', worktimerecord_id=worktimerecord.id) }}">
+          <input type="submit" value="Change status!"/>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

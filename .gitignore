@@ -4,6 +4,7 @@ materiaali/
 
 #Tietokanta
 tasks.db
+worktimerecords.db
 
 #kopioidussa jo mukana
 #venv/
