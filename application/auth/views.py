@@ -25,3 +25,4 @@ def auth_login():
 def auth_logout():
     logout_user()
     return redirect(url_for("index"))
+    
