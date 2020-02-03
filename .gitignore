@@ -6,6 +6,9 @@ materiaali/
 tasks.db
 worktimerecords.db
 
+# joku json settingsi
+.vscode/
+
 #kopioidussa jo mukana
 #venv/
 #__pycache__/
