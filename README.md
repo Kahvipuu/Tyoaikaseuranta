@@ -11,6 +11,7 @@ Tarpeen mukaan ohjelmaan lisätään myös tehtävälaji sekä paikka päiväkoh
 
 ### Heroku
 [Heroku, tyoaikaseuranta2020](https://tsoha-tyoaikaseuranta2020.herokuapp.com/)
+Testikäyttäjä: Username: user Password: pass
 
 ### Tietokantakaavio
 
