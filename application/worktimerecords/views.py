@@ -1,5 +1,5 @@
 from flask import redirect, render_template, request, url_for
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 from application import app, db
 from application.worktimerecords.models import Worktimerecord
@@ -18,8 +18,8 @@ def worktimerecords_form():
 @login_required
 def worktimerecords_set_done(worktimerecord_id):
 
-    t = Worktimerecord.query.get(worktimerecord_id)
-    t.done = True
+    wtr = Worktimerecord.query.get(worktimerecord_id)
+    wtr.done = True
     db.session().commit()
   
     return redirect(url_for("worktimerecords_index"))
@@ -32,10 +32,11 @@ def worktimerecords_create():
     if not form.validate():
         return render_template("worktimerecords/new.html", form = form)
 
-    t = Worktimerecord(form.name.data)
-    t.done = form.done.data
+    wtr = Worktimerecord(form.name.data)
+    wtr.done = form.done.data
+    wtr.account_id = current_user.id
 
-    db.session().add(t)
+    db.session().add(wtr)
     db.session().commit()
 
     return redirect(url_for("worktimerecords_index"))
