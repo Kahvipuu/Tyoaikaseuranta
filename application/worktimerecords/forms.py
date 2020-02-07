@@ -5,7 +5,7 @@ class WorktimerecordForm(FlaskForm):
     name = StringField("Type of work done", [validators.Length(min=3)])
     done = BooleanField("Done")
     hours = IntegerField("Hours")
-    dateofwork = DateField("Date")
+    dateofwork = DateField("Date(YYYY-MM-DD)")
     project = StringField("Project Name")
 
     class Meta:

@@ -1,5 +1,6 @@
 from application import db
 from application.models import Base
+from application.projects.models import Project_worktimerecord, Project
 
 class Worktimerecord(Base):
 

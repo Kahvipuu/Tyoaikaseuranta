@@ -23,4 +23,23 @@
     </tr>
     {% endfor %}
   </table>
-{% endblock %}
+
+  {% if users_record is defined %}
+
+  <p>
+    Recorded worktimes:
+  </p>
+
+  <ul>
+    {% for hours in users_record %}
+    <li>
+      {{ hours.name }}
+      {{ hours.hours }}
+    </li>
+    {% endfor %}
+  </ul>
+
+  {% endif %}
+
+
+  {% endblock %}
