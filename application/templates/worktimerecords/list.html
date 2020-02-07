@@ -3,16 +3,21 @@
 {% block body %}
   <table>
     <tr>
-      <th>Worktimerecord</th>
-      <th>Done</th>
+      <th>Definition</th>
+      <th>Hours</th>
+      <th>Project</th>
+      <th>Date</th>
+      <th></th>
     </tr>
     {% for worktimerecord in worktimerecords %}
     <tr>
       <td>{{ worktimerecord.name }}</td>
-      <td>{{ worktimerecord.done }}</td>
+      <td>{{ worktimerecord.hours }}</td>
+      <td>{{ worktimerecord.project_id }}</td>
+      <td>{{ worktimerecord.dateofwork }}</td>
       <td>
         <form method="POST" action="{{ url_for('worktimerecords_set_done', worktimerecord_id=worktimerecord.id) }}">
-          <input type="submit" value="Change status!"/>
+          <input type="submit" value="Delete record"/>
         </form>
       </td>
     </tr>

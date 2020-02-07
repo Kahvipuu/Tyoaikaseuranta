@@ -22,17 +22,33 @@
     </tr>
     <tr>
       <td>
-        {{ form.done.label }}
+        {{ form.hours.label }}
       </td>
       <td>
-        {{ form.done }}
+        {{ form.hours }}
       </td>
     </tr>
     <tr>
-      <td colspan="3">
+      <td>
+        {{ form.dateofwork.label }}
+      </td>
+      <td>
+        {{ form.dateofwork }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        {{ form.project.label }}
+      </td>
+      <td>
+        {{ form.project }}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="5">
         <input type="submit" value="Add a new worktimerecord"/>
       </td>
-  </tr>
+    </tr>
 
 </form>
 {% endblock %}

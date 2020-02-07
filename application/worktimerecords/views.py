@@ -19,7 +19,8 @@ def worktimerecords_form():
 def worktimerecords_set_done(worktimerecord_id):
 
     wtr = Worktimerecord.query.get(worktimerecord_id)
-    wtr.done = True
+
+    db.session().delete(wtr)
     db.session().commit()
   
     return redirect(url_for("worktimerecords_index"))
@@ -33,8 +34,12 @@ def worktimerecords_create():
         return render_template("worktimerecords/new.html", form = form)
 
     wtr = Worktimerecord(form.name.data)
-    wtr.done = form.done.data
+    wtr.hours = form.hours.data
+    wtr.dateofwork = form.dateofwork.data
     wtr.account_id = current_user.id
+
+    # miten??
+    wtr.project_id = form.project.data
 
     db.session().add(wtr)
     db.session().commit()

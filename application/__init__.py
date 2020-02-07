@@ -22,6 +22,7 @@ else:
 db = SQLAlchemy(app)
 
 # Kansiosta application tiedoston views sisältö, omaa kamaa
+from application import models
 from application import views
 # Kansiosta applic/worktimerecords
 from application.worktimerecords import models
@@ -29,6 +30,9 @@ from application.worktimerecords import views
 # autentikaatio
 from application.auth import models
 from application.auth import views
+# projektit
+from application.projects import models
+from application.projects import views
 
 # kirjautumistoiminnallisuus
 from application.auth.models import User

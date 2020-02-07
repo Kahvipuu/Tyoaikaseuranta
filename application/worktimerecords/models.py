@@ -1,16 +1,21 @@
 from application import db
+from application.models import Base
 
-class Worktimerecord(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
-    date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(),
-    onupdate=db.func.current_timestamp())
+class Worktimerecord(Base):
 
+    __tablename__ = "worktimerecord"
+
+    #name on nyt työaikakirjauksen selite, kun ehtii niin pitäisi etsiä hyvä refactorointi keino VisualSC:een ja muuttaa esim. definition
     name = db.Column(db.String(144), nullable=False)
     done = db.Column(db.Boolean, nullable=False)
+    hours = db.Column(db.Integer)
+    dateofwork = db.Column(db.Date)
+
 
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'),
                            nullable = False)
+
+    project_id = db.relationship("Project_worktimerecord", backref='worktimerecords', lazy = True)
 
     def __init__(self, name):
         self.name = name

@@ -4,4 +4,21 @@
   <p>
     Heipä hei!
   </p>
+
+  {% if users_record is defined %}
+  <p>
+    Recorded worktimes
+  </p>
+
+  <ul>
+    {% for row in users_record %}
+    <li>
+      print(row[0])
+      print(row[1])
+    </li>
+    {% endfor %}
+  </ul>
+
+  {% endif %}
+
 {% endblock %}
