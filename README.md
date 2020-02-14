@@ -5,7 +5,7 @@
 Ohjelmalla voi seurata useampien projektien työaikoja henkilöittäin. Peruskäyttäjä näkee vain omat kirjauksensa, projektipäällikkö saa raportit kaikista projektin tunneista. Ohjelman ylläpitäjä/yrityksen johto näkee tarvittaessa kaikki kirjaukset ja saa niistä yhteenvedon.
 Tarpeen mukaan ohjelmaan lisätään myös tehtävälaji sekä paikka päiväkohtaiselle lisäselitykselle.
 
-### Ohjelman toiminnot
+### Ohjelman toiminnot ja käyttötapaukset
 
 [Toiminnot](https://github.com/Kahvipuu/Tyoaikaseuranta/blob/master/documentation/kayttotapaukset.md)
 

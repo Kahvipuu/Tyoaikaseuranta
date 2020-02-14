@@ -32,18 +32,21 @@ class User(Base):
     def is_authenticated(self):
         return True
 
+    def roles(self):
+        return ["ADMIN"]
+
     @staticmethod
     def find_users_records():
-        stmt = text("SELECT SUM(Worktimerecord.hours) FROM Account"
+        stmt = text("SELECT project.name, SUM(Worktimerecord.hours) FROM Account"
                      " LEFT JOIN Worktimerecord ON Worktimerecord.account_id = Account.id"
                      " LEFT JOIN Project_worktimerecord ON Project_worktimerecord.worktimerecord_id = Worktimerecord.id"
-                     " LEFT JOIN Project ON Project.id = Project_worktimerecord.project_id")
-#                     " GROUP BY project.id")
-#testiä
+                     " LEFT JOIN Project ON Project.id = Project_worktimerecord.project_id"
+                     " GROUP BY project.id")
+
         res = db.engine.execute(stmt)
 
         response = []
         for row in res:
-            response.append({"hours":row[0]})
+            response.append({"name":row[0], "hours":row[1]})
 
         return response

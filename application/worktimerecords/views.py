@@ -1,7 +1,7 @@
 from flask import redirect, render_template, request, url_for
-from flask_login import login_required, current_user
+from flask_login import current_user
 
-from application import app, db
+from application import app, db, login_required
 from application.worktimerecords.models import Worktimerecord
 from application.worktimerecords.forms import WorktimerecordForm
 from application.projects.models import Project
