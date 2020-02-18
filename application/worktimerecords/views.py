@@ -32,7 +32,7 @@ def worktimerecords_remove(worktimerecord_id):
 @login_required
 def worktimerecords_create():
 
-    project_list = Project.query.all.order_by('name')
+    project_list = Project.query.all()
 
     project_choices = [ (i.id, i.name) for i in project_list ]
 
