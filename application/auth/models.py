@@ -13,6 +13,7 @@ class User(Base):
 
 # jostain syystä "Wtr" täytyy olla isolla, viittaus luokkaan ei tauluun
     worktimerecords = db.relationship("Worktimerecord", backref='account', lazy = True)
+    projects = db.relationship("Project", backref='account', lazy = True)
 
 # Toteutetaan ehkä myöhemmin
 #    projectlead = db.relationship("Project", secondary=account_project, back_populates = 'account', lazy = True)
@@ -26,7 +27,7 @@ class User(Base):
     def is_active(self):
         return True
 
-    def is_anonumous(self):
+    def is_anonymous(self):
         return True
 
     def is_authenticated(self):
@@ -37,11 +38,13 @@ class User(Base):
 
     @staticmethod
     def find_users_records():
-        stmt = text("SELECT project.name, SUM(Worktimerecord.hours) FROM Account"
-                     " LEFT JOIN Worktimerecord ON Worktimerecord.account_id = Account.id"
-                     " LEFT JOIN Project_worktimerecord ON Project_worktimerecord.worktimerecord_id = Worktimerecord.id"
-                     " LEFT JOIN Project ON Project.id = Project_worktimerecord.project_id"
+        stmt = text("SELECT project.name, SUM(worktimerecord.hours) FROM Account"
+                     " LEFT JOIN worktimerecord ON worktimerecord.account_id = Account.id"
+                     " LEFT JOIN project ON project.id = worktimerecord.project_id"
                      " GROUP BY project.id")
+
+# shoo
+#                     " LEFT JOIN project_worktimerecord ON project_worktimerecord.worktimerecord_id = worktimerecord.id"
 
         res = db.engine.execute(stmt)
 

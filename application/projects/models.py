@@ -1,33 +1,23 @@
 from application import db
 from application.models import Base
-
-# vikaa..
-# Projekti-Työaikakirjaus ,tarvitseeko db.Integerin??
-class Project_worktimerecord(Base):
-
-    __tablename__ = "project_worktimerecord"
-
-    project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
-    worktimerecord_id = db.Column(db.Integer, db.ForeignKey('worktimerecord.id'))
+from flask_login import current_user
 
 class Project(Base):
 
     ___tablename__ = "project"
 
     name = db.Column(db.String(144), nullable=False)
+    active = db.Column(db.Boolean, nullable=False)
+    leader = db.Column(db.String(144), nullable=False)
 
-# myöhemmin
-#    projectlead_account_id = db.Column(db.Integer, db.ForeignKey('account.id'),
-#                           nullable = False)
+    projectlead_account_id = db.Column(db.Integer, db.ForeignKey('account.id'),
+                                       nullable=False)
 
-    worktimerecord_id = db.relationship("Project_worktimerecord", backref='projects', lazy = True)
+    worktimerecord_id = db.relationship('Worktimerecord', backref='project', lazy=True)
 
     def __init__(self, name):
         self.name = name
-
-
-# Henkilö-Projekti, toteutetaan ehkä myöhemmin
-# account_project = db.Table('account_project', Base.metadata,
-#    db.Column("account_id", db.Integer, db.ForeignKey('account.id')),
-#    db.Column("project_id", db.Integer, db.ForeignKey('project.id')) )
+        self.active = True
+        self.leader = current_user.name
+        self.projectlead_account_id = current_user.id
 

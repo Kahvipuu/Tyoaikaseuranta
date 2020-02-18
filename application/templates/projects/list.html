@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <table>
+    <tr>
+      <th>Project name</th>
+      <th>Id</th>
+      <th>Project leader</th>
+      <th></th>
+    </tr>
+    {% for project in projects %}
+    <tr>
+      <td>{{ project.name }}</td>
+      <td>{{ project.id }}</td>
+      <td>{{ project.leader }}</td>
+      {% if project.projectlead_account_id == current_user.id %}
+        <td>
+          <a href="{{url_for('projects_modify', project_id=project.id)}}">Update </a>
+        </td>
+        <td>
+          <form method="POST" action="{{ url_for('projects_remove', project_id=project.id) }}">
+            <input type="submit" value="Delete project"/>
+          </form>
+        </td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </table>
+
+  {% endblock %}

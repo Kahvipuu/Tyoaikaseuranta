@@ -3,20 +3,30 @@
 {% block body %}
   <table>
     <tr>
+      <th>Username</th>
       <th>Definition</th>
       <th>Hours</th>
-      <th>Project</th>
+      <th>Project Id</th>
+      <th>Project Name</th>
       <th>Date</th>
       <th></th>
     </tr>
     {% for worktimerecord in worktimerecords %}
     <tr>
+      <td>{{ worktimerecord.account_id }}
+        {% for user in users %}
+          {% if user.id == worktimerecord.account_id %}
+            {{ user.name }}
+          {% endif %}
+        {% endfor %}
+      </td>
       <td>{{ worktimerecord.name }}</td>
       <td>{{ worktimerecord.hours }}</td>
       <td>{{ worktimerecord.project_id }}</td>
+      <td>{{ worktimerecord.project_name}}</td>
       <td>{{ worktimerecord.dateofwork }}</td>
       <td>
-        <form method="POST" action="{{ url_for('worktimerecords_set_done', worktimerecord_id=worktimerecord.id) }}">
+        <form method="POST" action="{{ url_for('worktimerecords_remove', worktimerecord_id=worktimerecord.id) }}">
           <input type="submit" value="Delete record"/>
         </form>
       </td>

@@ -9,29 +9,37 @@ from application.auth.models import User
 
 @app.route("/worktimerecords", methods=["GET"])
 def worktimerecords_index():
-    return render_template("worktimerecords/list.html", worktimerecords = Worktimerecord.query.all(), users_record = User.find_users_records())
+    return render_template("worktimerecords/list.html", worktimerecords = Worktimerecord.query.all(), users_record = User.find_users_records(), users = User.query.all())
 
 @app.route("/worktimerecords/new/")
 @login_required
 def worktimerecords_form():
     return render_template("worktimerecords/new.html", form = WorktimerecordForm())
 
-# oikeasti kirjauksen poisto, muutetaan nimi aikanaan
-@app.route("/worktimerecords/<worktimerecord_id>/", methods=["POST"])
+@app.route("/worktimerecords/remove/<worktimerecord_id>/", methods=["POST"])
 @login_required
-def worktimerecords_set_done(worktimerecord_id):
+def worktimerecords_remove(worktimerecord_id):
 
     wtr = Worktimerecord.query.get(worktimerecord_id)
 
-    db.session().delete(wtr)
-    db.session().commit()
+    if wtr.account_id == current_user.id:
+        db.session().delete(wtr)
+        db.session().commit()
   
     return redirect(url_for("worktimerecords_index"))
 
-@app.route("/worktimerecords/", methods=["POST"])
+@app.route("/worktimerecords/", methods=["GET", "POST"])
 @login_required
 def worktimerecords_create():
+
+    project_list = Project.query.all.order_by('name')
+
+    project_choices = [ (i.id, i.name) for i in project_list ]
+
     form = WorktimerecordForm(request.form)
+    form.project.choices = project_choices
+    # vaihtoehdot ei mene formiin asti
+    # [('1', 'eka'),('2','toka')]
 
     if not form.validate():
         return render_template("worktimerecords/new.html", form = form)
@@ -42,10 +50,11 @@ def worktimerecords_create():
     wtr.account_id = current_user.id
 
     # miten?? Jotenkin pitäisi projekti ja kirjaus liittää toisiinsa
-    proj = Project(form.project.data)
+    proj = Project.query.get(form.project.data)
+    wtr.project_name = proj.name
+    wtr.project_id = proj.id
 
     db.session().add(wtr)
-    db.session().add(proj)
     db.session().commit()
 
     return redirect(url_for("worktimerecords_index"))
