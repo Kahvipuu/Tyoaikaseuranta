@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
   
 {% block body %}
-<form method="POST" action="{{ url_for('projects_modify') }}">
+<form method="POST" action="{{ url_for('projects_modify_selected', project_id = project_id) }}">
   <table>
     <tr>
       <td>
@@ -22,7 +22,7 @@
     </tr>
     <tr>
       <td colspan="2">
-        <input type="submit" value="Add a new project"/>
+        <input type="submit" value="Rename project"/>
       </td>
     </tr>
 

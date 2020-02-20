@@ -20,7 +20,6 @@ def projects_form():
 @app.route("/projects/remove/<project_id>/", methods=["POST"])
 @login_required
 def projects_remove(project_id):
-
     project = Project.query.get(project_id)
     user = current_user.username
 
@@ -36,9 +35,15 @@ def projects_remove(project_id):
 @login_required
 def projects_modify(project_id):
     project = Project.query.get(project_id)
+    return render_template('projects/modify.html', form = ProjectForm(), project_id = project.id)
+
+@app.route("/projects/modifyselected/<project_id>/", methods=["GET", "POST"])
+@login_required
+def projects_modify_selected(project_id):
+    project = Project.query.get(project_id)
 
     # olisi parempi tunnistaa id:lla
-    if project.leader != current_user.name:
+    if project.projectlead_account_id != current_user.id:
         abort(403)
 
     form = ProjectForm(request.form)

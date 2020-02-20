@@ -43,8 +43,6 @@ class User(Base):
                      " LEFT JOIN project ON project.id = worktimerecord.project_id"
                      " GROUP BY project.id")
 
-# shoo
-#                     " LEFT JOIN project_worktimerecord ON project_worktimerecord.worktimerecord_id = worktimerecord.id"
 
         res = db.engine.execute(stmt)
 

@@ -25,11 +25,13 @@
       <td>{{ worktimerecord.project_id }}</td>
       <td>{{ worktimerecord.project_name}}</td>
       <td>{{ worktimerecord.dateofwork }}</td>
+      {% if worktimerecord.account_id == current_user.id %}
       <td>
         <form method="POST" action="{{ url_for('worktimerecords_remove', worktimerecord_id=worktimerecord.id) }}">
           <input type="submit" value="Delete record"/>
         </form>
       </td>
+      {% endif %}
     </tr>
     {% endfor %}
   </table>
