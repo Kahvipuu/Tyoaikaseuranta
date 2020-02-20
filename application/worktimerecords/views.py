@@ -42,15 +42,15 @@ def worktimerecords_create():
 
     form = WorktimerecordForm(request.form)
 
-    if not form.validate():
-        return render_template("worktimerecords/new.html", form = form)
+# tää kuoli jossain kohtaa..
+#    if not form.validate():
+#        return render_template("worktimerecords/new.html")
 
     wtr = Worktimerecord(form.name.data)
     wtr.hours = form.hours.data
     wtr.dateofwork = form.dateofwork.data
     wtr.account_id = current_user.id
 
-    # miten?? Jotenkin pitäisi projekti ja kirjaus liittää toisiinsa
     proj = Project.query.get(form.project.data)
     wtr.project_name = proj.name
     wtr.project_id = proj.id
