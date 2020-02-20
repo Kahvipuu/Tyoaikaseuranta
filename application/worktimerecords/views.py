@@ -6,6 +6,7 @@ from application.worktimerecords.models import Worktimerecord
 from application.worktimerecords.forms import WorktimerecordForm
 from application.projects.models import Project
 from application.auth.models import User
+from application.projects.forms import ProjectForm
 
 @app.route("/worktimerecords", methods=["GET"])
 def worktimerecords_index():
@@ -14,7 +15,14 @@ def worktimerecords_index():
 @app.route("/worktimerecords/new/")
 @login_required
 def worktimerecords_form():
-    return render_template("worktimerecords/new.html", form = WorktimerecordForm())
+    project_list = Project.query.all()
+    if not project_list:
+        return render_template("projects/new.html", form = ProjectForm())
+    project_choices = [ (i.id, i.name) for i in project_list ]
+    form = WorktimerecordForm()
+    form.project.choices = project_choices
+
+    return render_template("worktimerecords/new.html", form = form)
 
 @app.route("/worktimerecords/remove/<worktimerecord_id>/", methods=["POST"])
 @login_required
@@ -32,14 +40,7 @@ def worktimerecords_remove(worktimerecord_id):
 @login_required
 def worktimerecords_create():
 
-    project_list = Project.query.all()
-
-    project_choices = [ (i.id, i.name) for i in project_list ]
-
     form = WorktimerecordForm(request.form)
-    form.project.choices = project_choices
-    # vaihtoehdot ei mene formiin asti
-    # [('1', 'eka'),('2','toka')]
 
     if not form.validate():
         return render_template("worktimerecords/new.html", form = form)

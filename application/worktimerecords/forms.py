@@ -6,7 +6,8 @@ class WorktimerecordForm(FlaskForm):
     done = BooleanField("Done")
     hours = IntegerField("Hours", [validators.number_range(min=0, max=24, message="Hours 0-24")])
     dateofwork = DateField("Date(YYYY-MM-DD)", [validators.input_required(message="YYYY-MM-DD")])
-    project = SelectField("Project Name", coerce=int, choices=[('1', 'eka'),('2','toka')])
+    project = SelectField("Project Name", coerce=int)
+# choices=[('1', 'eka'),('2','toka')]
 
     class Meta:
         csrf = False
