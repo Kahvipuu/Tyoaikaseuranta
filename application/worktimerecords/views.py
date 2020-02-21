@@ -15,13 +15,14 @@ def worktimerecords_index():
 @app.route("/worktimerecords/new/")
 @login_required
 def worktimerecords_form():
+    
     project_list = Project.query.all()
     if not project_list:
         return render_template("projects/new.html", form = ProjectForm())
     project_choices = [ (i.id, i.name) for i in project_list ]
     form = WorktimerecordForm()
     form.project.choices = project_choices
-
+    
     return render_template("worktimerecords/new.html", form = form)
 
 @app.route("/worktimerecords/remove/<worktimerecord_id>/", methods=["POST"])
@@ -42,9 +43,9 @@ def worktimerecords_create():
 
     form = WorktimerecordForm(request.form)
 
-# tää kuoli jossain kohtaa..
-#    if not form.validate():
-#        return render_template("worktimerecords/new.html")
+# tää kuoli jossain kohtaa.. ja jostain syytä toimii kun laittoi xx_on_submit
+    if not form.validate_on_submit:
+        return render_template("worktimerecords/new.html")
 
     wtr = Worktimerecord(form.name.data)
     wtr.hours = form.hours.data

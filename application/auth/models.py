@@ -15,9 +15,6 @@ class User(Base):
     worktimerecords = db.relationship("Worktimerecord", backref='account', lazy = True)
     projects = db.relationship("Project", backref='account', lazy = True)
 
-# Toteutetaan ehkä myöhemmin
-#    projectlead = db.relationship("Project", secondary=account_project, back_populates = 'account', lazy = True)
-
     def __init__(self, name):
         self.name = name
 

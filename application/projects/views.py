@@ -22,6 +22,11 @@ def projects_form():
 def projects_remove(project_id):
     project = Project.query.get(project_id)
     user = current_user.username
+    wtrs = Worktimerecord.query.all()
+
+    for wtr in wtrs:
+        if wtr.project_id == project.id:
+            return redirect(url_for('projects_index'))
 
     if project.leader == user:
         db.session().delete(project)
