@@ -58,6 +58,8 @@ def projects_modify_selected(project_id):
 
     project.name = form.name.data
 
+    # vanhojen projektinimien muuttaminen kirjauksista.
+
     db.session.commit()
 
     return redirect(url_for("projects_index"))

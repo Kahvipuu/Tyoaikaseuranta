@@ -44,10 +44,12 @@
 
   <ul>
     {% for hours in users_record %}
+    {% if hours.name != None %}
     <li>
       {{ hours.name }}
       {{ hours.hours }}
     </li>
+    {% endif %}
     {% endfor %}
   </ul>
 
