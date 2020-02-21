@@ -4,7 +4,7 @@
 
 ## Draft 3, final
 
-<img src="https://github.com/Kahvipuu/Tyoaikaseuranta/blob/master/documentation/pics/databasediagram3.oxps">
+<img src="https://github.com/Kahvipuu/Tyoaikaseuranta/blob/master/documentation/pics/databasediagram3.png">
 
 ## Draft 2
 
