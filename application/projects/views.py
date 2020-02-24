@@ -26,7 +26,8 @@ def projects_remove(project_id):
 
     for wtr in wtrs:
         if wtr.project_id == project.id:
-            return redirect(url_for('projects_index'))
+            return render_template("projects/list.html", projects = Project.query.all(), 
+                error = "There are workrecords in the project you are trying to remove")
 
     if project.leader == user:
         db.session().delete(project)

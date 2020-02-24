@@ -23,7 +23,7 @@ def worktimerecords_form():
     form = WorktimerecordForm()
     form.project.choices = project_choices
     
-    return render_template("worktimerecords/new.html", form = form)
+    return render_template("worktimerecords/new.html", form = form, choices = project_choices)
 
 @app.route("/worktimerecords/remove/<worktimerecord_id>/", methods=["POST"])
 @login_required
@@ -34,8 +34,9 @@ def worktimerecords_remove(worktimerecord_id):
     if wtr.account_id == current_user.id:
         db.session().delete(wtr)
         db.session().commit()
-  
-    return redirect(url_for("worktimerecords_index"))
+        return redirect(url_for("worktimerecords_index"))
+
+    return redirect(url_for("worktimerecords_index", error = "Only project lead or maker can delete record"))
 
 @app.route("/worktimerecords/", methods=["GET", "POST"])
 @login_required
@@ -43,9 +44,15 @@ def worktimerecords_create():
 
     form = WorktimerecordForm(request.form)
 
-# tää kuoli jossain kohtaa.. ja jostain syytä toimii kun laittoi xx_on_submit
-    if not form.validate_on_submit:
-        return render_template("worktimerecords/new.html")
+
+    project_list = Project.query.all()
+    project_choices = [ (i.id, i.name) for i in project_list ]
+    form.project.choices = project_choices
+
+    # tää kuoli jossain kohtaa.. ja jostain syytä toimii kun laittoi xx_on_submit.. oli väärin tehty, ei toimi..
+    # Toimii kun laittoi vaihtoehdot uudestaan formiin tässä metodissa
+    if not form.validate_on_submit():
+        return render_template("worktimerecords/new.html", form = form)
 
     wtr = Worktimerecord(form.name.data)
     wtr.hours = form.hours.data
