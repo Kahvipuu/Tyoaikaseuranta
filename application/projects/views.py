@@ -60,6 +60,10 @@ def projects_modify_selected(project_id):
     project.name = form.name.data
 
     # vanhojen projektinimien muuttaminen kirjauksista.
+    wtrs = Worktimerecord.query.filter_by(project_id=project.id)
+    for wtr in wtrs:
+        wtr.project_name = project.name
+
 
     db.session.commit()
 
