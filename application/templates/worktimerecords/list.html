@@ -11,7 +11,7 @@
       <th>Project Name</th>
       <th>Date</th>
       <th></th>
-    </tr>
+    </tr>    
     {% for worktimerecord in worktimerecords %}
     <tr>
       <td>{{ worktimerecord.account_id }}
@@ -42,23 +42,84 @@
     {% endfor %}
   </table>
 
-  {% if users_record is defined %}
 
-  <p>
-    Recorded worktimes:
+  <p style="padding-top: 30px;">
+    Other users records in your projects:
+  </p>
+  <table>
+    <tr>
+      <th>Username</th>
+      <th>Definition</th>
+      <th>Hours</th>
+      <th>Project Id</th>
+      <th>Project Name</th>
+      <th>Date</th>
+      <th></th>
+    </tr>
+    {% if projectlead_records is defined %}
+      {% for projectrecord in projectlead_records %}
+      <tr>
+        {% if projectrecord.account_id != current_user.id %}
+        <td>{{ projectrecord.account_id }}
+          {% for user in users %}
+            {% if user.id == projectrecord.account_id %}
+              {{ user.name }}
+            {% endif %}
+          {% endfor %}
+        </td>
+        <td>{{ projectrecord.name }}</td>
+        <td>{{ projectrecord.hours }}</td>
+        <td>{{ projectrecord.project_id }}</td>
+        <td>{{ projectrecord.project_name}}</td>
+        <td>{{ projectrecord.dateofwork }}</td>
+      </tr>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </table>
+
+  {% if projectleaders_summary is defined %}
+  <p style="padding-top: 30px;">
+    Summary of recorded worktimes in your projects:
+  </p>
+  <table>
+    <tr>
+      <th>Number of workers</th>
+      <th>Project name</th>
+      <th>Total hours</th>
+    </tr>
+    {% for data in projectleaders_summary %}
+    <tr>
+        {% if data.name != None %}  
+        <td>{{ data.workers }}</td>
+        <td>{{ data.name }}</td>
+        <td>{{ data.hours }}</td>
+        {% endif %}
+    </tr>
+    {% endfor %}  
+  </table>
+  {% endif %}
+
+
+  {% if summary_of_records is defined%}
+  <p style="padding-top: 30px;">
+    Summary of all recorded worktimes:
   </p>
 
-  <ul>
-    {% for hours in users_record %}
-    {% if hours.name != None %}
-    <li>
-      {{ hours.name }}
-      {{ hours.hours }}
-    </li>
-    {% endif %}
-    {% endfor %}
-  </ul>
-
+  <table>
+    <tr>
+      <th>Project name</th>
+      <th>Total hours</th>
+    </tr>
+    {% for data in summary_of_records %}
+    <tr>
+        {% if data.name != None %}  
+        <td>{{ data.name }}</td>
+        <td>{{ data.hours }}</td>
+        {% endif %}
+    </tr>
+    {% endfor %}  
+  </table>
   {% endif %}
 
 

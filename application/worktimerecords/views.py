@@ -9,8 +9,12 @@ from application.auth.models import User
 from application.projects.forms import ProjectForm
 
 @app.route("/worktimerecords", methods=["GET"])
+@login_required
 def worktimerecords_index():
-    return render_template("worktimerecords/list.html", worktimerecords = Worktimerecord.query.all(), users_record = User.find_users_records(), users = User.query.all())
+    # Users query all: pitäisi laittaa talukkoon tieto käyttäjänimestä, nyt on monimutkainen rakennelma
+    return render_template("worktimerecords/list.html", worktimerecords = Worktimerecord.query.filter_by(account_id = current_user.id),
+     users = User.query.all(), projectlead_records = User.find_users_projectlead_records(),
+     projectleaders_summary = User.find_projectleaders_summary(), summary_of_records = User.summary_of_records())
 
 @app.route("/worktimerecords/new/")
 @login_required
@@ -65,7 +69,6 @@ def worktimerecords_modify_selected(worktimerecord_id):
     form = WorktimerecordForm(request.form)
     form.project.choices = project_choices
 
-#sdfgdfb
     if not form.validate_on_submit():
         return render_template("worktimerecords/modify.html", form = form, worktimerecord_id = wtr.id)
 
@@ -94,7 +97,7 @@ def worktimerecords_remove(worktimerecord_id):
 
     return redirect(url_for("worktimerecords_index", error = "Only project lead or maker can delete record"))
 
-@app.route("/worktimerecords/", methods=["GET", "POST"])
+@app.route("/worktimerecords/new/create", methods=["GET", "POST"])
 @login_required
 def worktimerecords_create():
 
@@ -104,7 +107,6 @@ def worktimerecords_create():
     project_list = Project.query.all()
     project_choices = [ (i.id, i.name) for i in project_list ]
     form.project.choices = project_choices
-
     # tää kuoli jossain kohtaa.. ja jostain syytä toimii kun laittoi xx_on_submit.. oli väärin tehty, ei toimi..
     # Toimii kun laittoi vaihtoehdot uudestaan formiin tässä metodissa
     if not form.validate_on_submit():

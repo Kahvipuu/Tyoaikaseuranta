@@ -9,4 +9,10 @@
     Creator of project is also its leader by default.
   </p>
 
+  {% if workers is defined %}
+    {% for data in workers%}
+    <td>{{data.quantity}} Active users</td>
+    {% endfor %}
+  {% endif %}
+
 {% endblock %}
