@@ -60,11 +60,18 @@ class User(Base):
         counter = 0
         response = []
         for project in projectsowned:
-            response.append({"name":project.name, 
+            response.append({
+            "name":project.name, 
             "hours":hours[counter], 
-            "workers": "1" })
-        # Worktimerecord.query.filter_by(project_id = project.id).group_by(Worktimerecord.account_id).count() })
+            "workers": Worktimerecord.query.filter_by(project_id = project.id).group_by(Worktimerecord.account_id).count()
+            })
             counter += 1
+
+
+# Toimiva versio, ennenkuin alan herokun toimintaa selvittämään...
+#            "workers": Worktimerecord.query.filter_by(project_id = project.id).group_by(Worktimerecord.account_id).count()
+
+
         # joku päivä sitten summa toimimaan
         # Worktimerecord.query.filter_by(project_id = project.id).group_by(project_id).sum(Worktimerecord.hours)
 

@@ -57,6 +57,7 @@ Käyttötapaukset:
     - UPDATE taulunnimi SET sarakeX="uusiarvo", sarakeX2="uusiarvo2" WHERE taulu.id = "annettu.id";
 
 ## Puuttuvat ominaisuudet
+* Herokun versio kaatuu projektinjohtajan työntekijämäärä ".count()" kyselyyn, kysely poistettu Herokun versiosta.
 * Toistaiseksi eri käyttäjäluokat ainakin puuttuvat, sekä tietenkin niihin liittyvät toiminnallisuudet. Kuitenkin projektin luoja on projektin johtaja oletuksena ja näkee projektista enemmän tietoa.
 * Projektin päättämistä ei ole toteutettu.
 * Projektiin erikseen liittyminen voisi olla suotavaa projektimäärän kasvaessa. Tähän olisi myös perusteltua toteuttaa henkilön ja projektin välinen erillinen monesta-moneen suhde. 
