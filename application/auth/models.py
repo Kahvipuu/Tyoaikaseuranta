@@ -62,7 +62,8 @@ class User(Base):
         for project in projectsowned:
             response.append({"name":project.name, 
             "hours":hours[counter], 
-            "workers": Worktimerecord.query.filter_by(project_id = project.id).group_by(Worktimerecord.account_id).count() })
+            "workers": "1" })
+        # Worktimerecord.query.filter_by(project_id = project.id).group_by(Worktimerecord.account_id).count() })
             counter += 1
         # joku päivä sitten summa toimimaan
         # Worktimerecord.query.filter_by(project_id = project.id).group_by(project_id).sum(Worktimerecord.hours)
