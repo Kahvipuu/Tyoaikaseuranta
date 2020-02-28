@@ -73,8 +73,8 @@ class User(Base):
     @staticmethod
     def find_workercount_in_all_projects():
         #Jostain mystisestä syystä täytyy laittaa kyselyt sisäkkäin
-        usercount = text("SELECT COUNT(1) FROM (SELECT account.id FROM account"
-                        " GROUP BY account.id)")
+        usercount = text("SELECT COUNT(1) AS quantity FROM (SELECT account.id FROM account"
+                        " GROUP BY account.id) AS sub")
 #                        " JOIN account ON worktimerecord.account_id = account.id"
 #                        " JOIN project ON worktimerecord.project_id = project.id"
 
